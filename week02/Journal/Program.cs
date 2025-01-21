@@ -1,29 +1,79 @@
 using System;
 
-class Program
+public class Program
 {
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Hello World! This is the Journal Project.");
-        Console.WriteLine("Welcome to your Journal path!");
-        Console.WriteLine("1 write a new entry"); 
-        Console.WriteLine("2 Display the Journal");
-        Console.WriteLine("3 Save the Journal to file");
-        Console.WriteLine("4 Load the Journal from file");
-        Console.WriteLine("5 Quit");
-        Console.Write("What do you want to do?");
-        string userinput = Console.ReadLine();
-        int number = int.Parse(userinput);
-        List <string> prompts = new List<string>();
-        prompts.Add("What was the most beautiful thing you did today?");
-        prompts.Add("What was the most interesting person I interacted with today?");
-        prompts.Add("What was the best part of my day?");
-        prompts.Add("How did I see the hand of the Lord in my life today?");
-        prompts.Add("How did I see the hand of the Lord in my life today?");
-        if (number == 1)
-        {
-            List(prompts);
-        }
+    private Journal _journal;
+    private Prompt _promptGenerator;
 
+    public Program()
+    {
+        _journal = new Journal();
+        _promptGenerator = new Prompt();
+    }
+
+    public void MainMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("\nJournal Menu:");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display the journal");
+            Console.WriteLine("3. Save the journal");
+            Console.WriteLine("4. Load the journal");
+            Console.WriteLine("5. Exit");
+            Console.Write("Choose an option: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    WriteNewEntry();
+                    break;
+                case "2":
+                    _journal.DisplayAll();
+                    break;
+                case "3":
+                    SaveJournal();
+                    break;
+                case "4":
+                    LoadJournal();
+                    break;
+                case "5":
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice, please try again.");
+                    break;
+            }
+        }
+    }
+
+    private void WriteNewEntry()
+    {
+        string prompt = _promptGenerator.GetRandomPrompt();
+        Console.WriteLine($"\n{prompt}");
+        Console.Write("Your response: ");
+        string response = Console.ReadLine();
+        var entry = new Entry(prompt, response);
+        _journal.AddEntry(entry);
+    }
+
+    private void SaveJournal()
+    {
+        Console.Write("Enter filename to save: ");
+        string filename = Console.ReadLine();
+        _journal.SaveToFile(filename);
+    }
+
+    private void LoadJournal()
+    {
+        Console.Write("Enter filename to load: ");
+        string filename = Console.ReadLine();
+        _journal.LoadFromFile(filename);
+    }
+
+    public static void Main(string[] args)
+    {
+        Program program = new Program();
+        program.MainMenu();
     }
 }

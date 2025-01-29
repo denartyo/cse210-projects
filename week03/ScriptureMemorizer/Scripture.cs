@@ -4,13 +4,13 @@ class Scripture
 {
     private Reference _reference;
     private List<Word> _words;
-    private Hider _hider; // Using the new Hider class
+    private Hider _hider;
 
     public Scripture(Reference reference, string text)
     {
         _reference = reference;
         _words = text.Split(' ').Select(word => new Word(word)).ToList();
-        _hider = new Hider(_words); // Pass words to Hider
+        _hider = new Hider(_words);
     }
 
     public void HideWords(int numberToHide)

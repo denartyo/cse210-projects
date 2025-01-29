@@ -18,7 +18,7 @@ class Program
             if (input == "quit")
                 break;
 
-            scripture.HideRandomWords(3);
+            scripture.HideWords(3);
 
             if (scripture.IsCompletelyHidden())
             {

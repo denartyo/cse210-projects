@@ -11,14 +11,12 @@ class Program
         order1.AddProduct(new Product("Laptop", "P001", 1200, 1));
         order1.AddProduct(new Product("Mouse", "P002", 25, 2));
 
-        // Creating Address, Customer, and Products for the second order
         Address address2 = new Address("456 Oak St", "San Francisco", "CA", "USA");
         Customer customer2 = new Customer("Jane Smith", address2);
         Order order2 = new Order(customer2);
         order2.AddProduct(new Product("Phone", "P003", 800, 1));
         order2.AddProduct(new Product("Charger", "P004", 15, 1));
 
-        // Displaying packing and shipping labels and total cost for both orders
         Console.WriteLine("Order 1:");
         Console.WriteLine(order1.GetPackingLabel());
         Console.WriteLine(order1.GetShippingLabel());
